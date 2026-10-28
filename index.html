@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Смарт Кейс — Ош</title>
+
+  <style>
+    :root {
+      --background: #101010;
+      --surface: #1b1b1b;
+      --border: #333;
+      --gold: #ffb638;
+      --text: #fff;
+      --muted: #aaa;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #101010f5;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 16px 0;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .brand img {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .brand span { color: var(--gold); }
+
+    nav, .languages, .actions, .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--text);
+      font-weight: bold;
+      transition: background .2s, border-color .2s;
+    }
+
+    .button:hover { border-color: var(--gold); }
+
+    .button.primary,
+    .button.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #141414;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 4px;
+    }
+
+    .hero {
+      padding: 90px 0;
+      max-width: 780px;
+    }
+
+    .label {
+      color: var(--gold);
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 18px 0;
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: 1.15;
+    }
+
+    h2 { font-size: 32px; margin: 0 0 22px; }
+    h3 { margin: 0 0 12px; }
+
+    p { color: var(--muted); }
+
+    .hero p {
+      max-width: 600px;
+      font-size: 18px;
+      margin-bottom: 28px;
+    }
+
+    section { padding: 55px 0; }
+
+    .catalog-tools {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    input {
+      width: 260px;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      color: white;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      padding: 26px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+
+    .card p { margin-bottom: 22px; }
+
+    .product-image {
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      border-radius: 8px;
+      margin-bottom: 18px;
+    }
+
+    .price {
+      color: var(--gold);
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .empty {
+      padding: 60px 25px;
+      text-align: center;
+      border: 1px dashed #555;
+      border-radius: 14px;
+    }
+
+    .empty p {
+      max-width: 500px;
+      margin: 12px auto 24px;
+    }
+
+    [hidden] { display: none !important; }
+
+    .contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 35px;
+      padding: 35px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .contact p { margin: 8px 0; }
+    .contact .actions { margin-top: 24px; }
+
+    footer {
+      padding: 30px 0;
+      margin-top: 40px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      nav { width: 100%; }
+      nav .button { flex: 1; padding: 10px; }
+      .hero { padding: 55px 0; }
+      .grid, .contact { grid-template-columns: 1fr; }
+      .catalog-tools input { width: 100%; }
+      .filters .button { padding: 10px 12px; font-size: 13px; }
+      .contact { padding: 24px; }
+      section { padding: 35px 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .button { transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="#">
+        <img src="logo.jpg" alt="Смарт Кейс">
+        <div>СМАРТ <span>КЕЙС</span></div>
+      </a>
+
+      <div class="languages" aria-label="Тил / Язык">
+        <button class="button active" data-lang="ky">KY</button>
+        <button class="button" data-lang="ru">RU</button>
+      </div>
+
+      <nav>
+        <a class="button" href="#catalog" data-text="catalog"></a>
+        <a class="button" href="#services" data-text="services"></a>
+        <a class="button" href="#contacts" data-text="contacts"></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="label">SMARTCASE — OSH</div>
+      <h1 data-text="title"></h1>
+      <p data-text="intro"></p>
+
+      <div class="actions">
+        <a class="button primary" href="#catalog" data-text="viewCatalog"></a>
+        <a class="button"
+           href="https://wa.me/996770309578"
+           target="_blank"
+           rel="noopener"
+           data-text="write"></a>
+      </div>
+    </section>
+
+    <section id="catalog">
+      <h2 data-text="catalog"></h2>
+
+      <div class="catalog-tools">
+        <div class="filters">
+          <button class="button active" data-category="all" data-text="all"></button>
+          <button class="button" data-category="phones" data-text="phones"></button>
+          <button class="button" data-category="accessories" data-text="accessories"></button>
+          <button class="button" data-category="gadgets" data-text="gadgets"></button>
+        </div>
+
+        <input id="search" type="search">
+      </div>
+
+      <div id="products" class="grid" aria-live="polite"></div>
+
+      <div id="empty" class="empty" role="status">
+        <h3 id="empty-title"></h3>
+        <p id="empty-description"></p>
+        <a class="button primary"
+           href="https://wa.me/996770309578"
+           target="_blank"
+           rel="noopener"
+           data-text="askStock"></a>
+      </div>
+    </section>
+
+    <section id="services">
+      <h2 data-text="services"></h2>
+
+      <div class="grid">
+        <article class="card">
+          <h3 data-text="repair"></h3>
+          <p data-text="repairDescription"></p>
+          <a class="button"
+             href="https://wa.me/996770309578"
+             target="_blank"
+             rel="noopener"
+             data-text="write"></a>
+        </article>
+
+        <article class="card">
+          <h3>Trade-in</h3>
+          <p data-text="tradeDescription"></p>
+          <a class="button"
+             href="https://wa.me/996770309578?text=Trade-in"
+             target="_blank"
+             rel="noopener"
+             data-text="details"></a>
+        </article>
+
+        <article class="card">
+          <h3 data-text="help"></h3>
+          <p data-text="helpDescription"></p>
+          <a class="button"
+             href="https://wa.me/996770309578"
+             target="_blank"
+             rel="noopener"
+             data-text="consult"></a>
+        </article>
+      </div>
+    </section>
+
+    <section id="contacts">
+      <div class="contact">
+        <div>
+          <h2 data-text="contacts"></h2>
+          <p data-text="address"></p>
+          <p data-text="hours"></p>
+          <p><a href="tel:+996770309578">+996 770 309 578</a></p>
+        </div>
+
+        <div class="actions">
+          <a class="button primary"
+             href="https://wa.me/996770309578"
+             target="_blank"
+             rel="noopener">WhatsApp</a>
+
+          <a class="button"
+             href="tel:+996770309578"
+             data-text="call"></a>
+
+          <a class="button"
+             href="https://www.instagram.com/smartcase2.lux/"
+             target="_blank"
+             rel="noopener">Instagram</a>
+
+          <a class="button"
+             href="https://www.google.com/maps/search/?api=1&query=Ош+Масалиева+28"
+             target="_blank"
+             rel="noopener"
+             data-text="map"></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">СМАРТ КЕЙС — <span data-text="footer"></span></div>
+  </footer>
+
+  <script>
+    /*
+      Товарларды кийин ушул массивге кошобуз.
+
+      Товардын түзүлүшү:
+      {
+        id: "product-1",
+        category: "phones",
+        name: { ky: "Товардын аты", ru: "Название товара" },
+        price: 1000,
+        image: "images/product.jpg"
+      }
+
+      Категориялар: phones, accessories, gadgets.
+      price — сом менен чыныгы баасы.
+    */
+    const products = [];
+
+    const translations = {
+      ky: {
+        title: "Технологияны биз менен танда.",
+        intro: "Жаңы жана колдонулган телефондор, аксессуарлар, гаджеттер жана телефон оңдоо. Баары Ош шаарындагы Смарт Кейсте.",
+        catalog: "Каталог",
+        services: "Кызматтар",
+        contacts: "Байланыш",
+        viewCatalog: "Каталогду ачуу",
+        write: "WhatsApp'ка жазуу",
+        all: "Баары",
+        phones: "Телефондор",
+        accessories: "Аксессуарлар",
+        gadgets: "Гаджеттер",
+        search: "Товар издөө",
+        emptyTitle: "Каталог жакында толукталат",
+        emptyDescription: "Товарларды кийин кошобуз. Азырынча керектүү товарды WhatsApp аркылуу сурасаңыз болот.",
+        noResults: "Товар табылган жок",
+        tryAgain: "Башка аталышты же категорияны тандап көрүңүз.",
+        askStock: "Бар-жогун сурап билүү",
+        repair: "Телефон оңдоо",
+        repairDescription: "Телефонуңуздагы көйгөйдү айтып жазыңыз. Оңдоо мүмкүнчүлүгүн жана баасын тактайбыз.",
+        tradeDescription: "Эски телефонуңузду алмаштыруунун шарттарын бизден тактаңыз.",
+        details: "Шарттарын билүү",
+        help: "Тандоого жардам",
+        helpDescription: "Өзүңүзгө ылайык телефон, гаджет жана аксессуар тандоого жардам беребиз.",
+        consult: "Кеңеш алуу",
+        address: "Ош шаары, Масалиева көчөсү, 28",
+        hours: "Күн сайын: 09:00–22:00",
+        call: "Чалуу",
+        map: "Картадан көрүү",
+        footer: "Телефондор жана аксессуарлар",
+        askProduct: "Товар жөнүндө суроо",
+        greeting: "Саламатсызбы! Бул товар барбы: ",
+        currency: "сом"
+      },
+
+      ru: {
+        title: "Выбирай технологии вместе с нами.",
+        intro: "Новые и б/у телефоны, аксессуары, гаджеты и ремонт телефонов. Всё в Смарт Кейсе в городе Ош.",
+        catalog: "Каталог",
+        services: "Услуги",
+        contacts: "Контакты",
+        viewCatalog: "Открыть каталог",
+        write: "Написать в WhatsApp",
+        all: "Все",
+        phones: "Телефоны",
+        accessories: "Аксессуары",
+        gadgets: "Гаджеты",
+        search: "Найти товар",
+        emptyTitle: "Каталог скоро пополнится",
+        emptyDescription: "Товары добавим позже. Пока вы можете уточнить наличие нужного товара в WhatsApp.",
+        noResults: "Товары не найдены",
+        tryAgain: "Попробуйте другое название или категорию.",
+        askStock: "Уточнить наличие",
+        repair: "Ремонт телефонов",
+        repairDescription: "Напишите о проблеме с телефоном. Уточним возможность и стоимость ремонта.",
+        tradeDescription: "Узнайте у нас об условиях обмена своего старого телефона.",
+        details: "Узнать условия",
+        help: "Помощь с выбором",
+        helpDescription: "Поможем подобрать подходящий телефон, гаджет или аксессуар.",
+        consult: "Получить консультацию",
+        address: "Город Ош, улица Масалиева, 28",
+        hours: "Ежедневно: 09:00–22:00",
+        call: "Позвонить",
+        map: "Открыть карту",
+        footer: "Телефоны и аксессуары",
+        askProduct: "Спросить о товаре",
+        greeting: "Здравствуйте! Есть ли в наличии: ",
+        currency: "сом"
+      }
+    };
+
+    let language = "ky";
+    let category = "all";
+
+    try {
+      if (localStorage.getItem("smartcase-language") === "ru") {
+        language = "ru";
+      }
+    } catch {}
+
+    const search = document.getElementById("search");
+    const grid = document.getElementById("products");
+    const empty = document.getElementById("empty");
+
+    function setLanguage(value) {
+      language = value;
+      const text = translations[language];
+
+      document.documentElement.lang = language;
+      document.title = "Смарт Кейс — " + text.footer;
+
+      document.querySelectorAll("[data-text]").forEach(element => {
+        element.textContent = text[element.dataset.text];
+      });
+
+      document.querySelectorAll("[data-lang]").forEach(button => {
+        const selected = button.dataset.lang === language;
+        button.classList.toggle("active", selected);
+        button.setAttribute("aria-pressed", String(selected));
+      });
+
+      search.placeholder = text.search;
+      search.setAttribute("aria-label", text.search);
+
+      try {
+        localStorage.setItem("smartcase-language", language);
+      } catch {}
+
+      renderProducts();
+    }
+
+    function renderProducts() {
+      const text = translations[language];
+      const query = search.value.trim().toLocaleLowerCase();
+
+      const filtered = products.filter(product => {
+        const name = product.name[language] || product.name.ky;
+        const matchesCategory =
+          category === "all" || product.category === category;
+
+        return matchesCategory &&
+          name.toLocaleLowerCase().includes(query);
+      });
+
+      grid.replaceChildren();
+
+      filtered.forEach(product => {
+        const name = product.name[language] || product.name.ky;
+
+        const card = document.createElement("article");
+        card.className = "card";
+
+        if (product.image) {
+          const image = document.createElement("img");
+          image.className = "product-image";
+          image.src = product.image;
+          image.alt = name;
+          image.loading = "lazy";
+          card.append(image);
+        }
+
+        const title = document.createElement("h3");
+        title.textContent = name;
+
+        const price = document.createElement("p");
+        price.className = "price";
+        price.textContent =
+          Number(product.price).toLocaleString("ru-RU") +
+          " " + text.currency;
+
+        const button = document.createElement("a");
+        button.className = "button primary";
+        button.textContent = text.askProduct;
+        button.href = "https://wa.me/996770309578?text=" +
+          encodeURIComponent(text.greeting + name);
+        button.target = "_blank";
+        button.rel = "noopener";
+
+        card.append(title, price, button);
+        grid.append(card);
+      });
+
+      empty.hidden = filtered.length > 0;
+
+      document.getElementById("empty-title").textContent =
+        products.length ? text.noResults : text.emptyTitle;
+
+      document.getElementById("empty-description").textContent =
+        products.length ? text.tryAgain : text.emptyDescription;
+
+      document.querySelectorAll("[data-category]").forEach(button => {
+        const selected = button.dataset.category === category;
+        button.classList.toggle("active", selected);
+        button.setAttribute("aria-pressed", String(selected));
+      });
+    }
+
+    document.querySelectorAll("[data-lang]").forEach(button => {
+      button.addEventListener("click", () => {
+        setLanguage(button.dataset.lang);
+      });
+    });
+
+    document.querySelectorAll("[data-category]").forEach(button => {
+      button.addEventListener("click", () => {
+        category = button.dataset.category;
+        renderProducts();
+      });
+    });
+
+    search.addEventListener("input", renderProducts);
+    setLanguage(language);
+  </script>
+</body>
+</html>
