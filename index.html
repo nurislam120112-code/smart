@@ -3,46 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101010">
+  <meta name="description"
+        content="Смарт Кейс — Ош шаарындагы телефондор, аксессуарлар жана телефон оңдоо.">
   <title>Смарт Кейс — Ош</title>
 
   <style>
     :root {
-      --background: #101010;
-      --surface: #1b1b1b;
-      --border: #333;
+      --bg: #101010;
+      --surface: #1a1a1a;
+      --border: #333333;
       --gold: #ffb638;
-      --text: #fff;
-      --muted: #aaa;
+      --white: #ffffff;
+      --muted: #b2b2b2;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 100px;
+      scroll-padding-top: 160px;
     }
 
     body {
       margin: 0;
-      background: var(--background);
-      color: var(--text);
+      background: var(--bg);
+      color: var(--white);
       font-family: Arial, sans-serif;
       line-height: 1.6;
     }
 
-    a { color: inherit; text-decoration: none; }
-    button, input { font: inherit; }
-    button { cursor: pointer; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button,
+    select {
+      cursor: pointer;
+    }
+
+    button,
+    a,
+    input,
+    select {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 4px;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
 
     .container {
-      width: min(1120px, 92%);
+      width: min(1200px, 92%);
       margin: auto;
+    }
+
+    .topbar {
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .topbar-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 9px 0;
     }
 
     header {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
       background: #101010f5;
       border-bottom: 1px solid var(--border);
     }
@@ -53,431 +99,1311 @@
       justify-content: space-between;
       gap: 20px;
       padding: 16px 0;
-      flex-wrap: wrap;
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 20px;
-      font-weight: bold;
+      flex-shrink: 0;
     }
 
     .brand img {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
+      width: 58px;
+      height: 58px;
       object-fit: cover;
+      border-radius: 50%;
+      border: 1px solid #705020;
     }
 
-    .brand span { color: var(--gold); }
+    .brand-name {
+      font-size: 23px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
 
-    nav, .languages, .actions, .filters {
+    .brand-name span {
+      color: var(--gold);
+    }
+
+    .brand-name small {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: normal;
+      letter-spacing: 2px;
+    }
+
+    nav,
+    .languages,
+    .actions {
       display: flex;
+      align-items: center;
       gap: 10px;
       flex-wrap: wrap;
     }
 
     .button {
       display: inline-flex;
-      align-items: center;
       justify-content: center;
-      padding: 12px 20px;
+      align-items: center;
+      min-height: 44px;
+      padding: 11px 19px;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 9px;
       background: var(--surface);
-      color: var(--text);
-      font-weight: bold;
-      transition: background .2s, border-color .2s;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      transition: border-color .2s, background .2s;
     }
 
-    .button:hover { border-color: var(--gold); }
+    .button:hover {
+      border-color: var(--gold);
+    }
 
     .button.primary,
     .button.active {
       background: var(--gold);
       border-color: var(--gold);
-      color: #141414;
+      color: #151515;
     }
 
-    :focus-visible {
-      outline: 3px solid var(--gold);
-      outline-offset: 4px;
+    .languages .button {
+      padding: 9px 13px;
     }
 
     .hero {
-      padding: 90px 0;
-      max-width: 780px;
+      padding: 80px 0 70px;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 50px;
+      align-items: center;
     }
 
-    .label {
+    .eyebrow {
       color: var(--gold);
-      font-size: 13px;
-      letter-spacing: 2px;
+      font-size: 12px;
+      letter-spacing: 3px;
       text-transform: uppercase;
     }
 
     h1 {
-      margin: 18px 0;
-      font-size: clamp(36px, 6vw, 64px);
+      margin: 20px 0;
+      font-size: clamp(36px, 5vw, 64px);
       line-height: 1.15;
+      letter-spacing: -1.5px;
     }
-
-    h2 { font-size: 32px; margin: 0 0 22px; }
-    h3 { margin: 0 0 12px; }
-
-    p { color: var(--muted); }
 
     .hero p {
       max-width: 600px;
+      color: var(--muted);
       font-size: 18px;
       margin-bottom: 28px;
     }
 
-    section { padding: 55px 0; }
-
-    .catalog-tools {
+    .hero-image {
       display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 25px;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
     }
 
-    input {
-      width: 260px;
-      padding: 12px 16px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--surface);
-      color: white;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .card {
-      padding: 26px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: var(--surface);
-    }
-
-    .card p { margin-bottom: 22px; }
-
-    .product-image {
+    .hero-image img {
+      display: block;
       width: 100%;
-      height: 220px;
-      object-fit: contain;
-      border-radius: 8px;
-      margin-bottom: 18px;
+      max-width: 360px;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 70px #ffb63818;
     }
 
-    .price {
-      color: var(--gold);
-      font-size: 22px;
+    .brand-strip {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      padding: 22px 15px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
       font-weight: bold;
     }
 
+    section {
+      padding: 55px 0;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 34px;
+      line-height: 1.25;
+    }
+
+    .section-description {
+      margin: 0 0 25px;
+      color: var(--muted);
+    }
+
+    .catalog-controls {
+      margin-bottom: 25px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .filters .button {
+      padding: 10px 16px;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    input,
+    select {
+      min-height: 48px;
+      padding: 12px 15px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--surface);
+      color: var(--white);
+    }
+
+    input {
+      width: 100%;
+      min-width: 0;
+    }
+
+    select {
+      min-width: 185px;
+    }
+
+    .catalog-count {
+      margin: 16px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .product {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      transition: border-color .2s;
+    }
+
+    .product:hover {
+      border-color: #9b712d;
+    }
+
+    .product-visual {
+      position: relative;
+      display: grid;
+      place-items: center;
+      height: 240px;
+      padding: 25px;
+      background: #fff;
+    }
+
+    .product-visual img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .image-fallback {
+      color: #444;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .product-body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 22px;
+    }
+
+    .product-brand {
+      margin-bottom: 8px;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .product h3 {
+      margin: 0 0 12px;
+      font-size: 21px;
+      line-height: 1.35;
+    }
+
+    .badges {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      padding: 4px 9px;
+      border: 1px solid #454545;
+      border-radius: 5px;
+      color: #ddd;
+      font-size: 11px;
+    }
+
+    .badge.new {
+      color: #a7e7b8;
+      border-color: #365640;
+      background: #223027;
+    }
+
+    .badge.used {
+      color: #ffd28b;
+      border-color: #65502f;
+      background: #30291e;
+    }
+
+    .product-note {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .product-price {
+      margin: auto 0 18px;
+      padding-top: 5px;
+      color: var(--gold);
+      font-size: 23px;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+
+    .product .button {
+      width: 100%;
+    }
+
     .empty {
-      padding: 60px 25px;
+      padding: 50px 20px;
       text-align: center;
       border: 1px dashed #555;
       border-radius: 14px;
     }
 
     .empty p {
-      max-width: 500px;
-      margin: 12px auto 24px;
+      color: var(--muted);
     }
 
-    [hidden] { display: none !important; }
+    .catalog-disclaimer {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 12px;
+    }
 
-    .contact {
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 25px;
+    }
+
+    .service {
+      display: flex;
+      flex-direction: column;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+
+    .service h3 {
+      margin: 0 0 12px;
+      font-size: 22px;
+    }
+
+    .service p {
+      margin: 0 0 25px;
+      color: var(--muted);
+    }
+
+    .service .button {
+      margin-top: auto;
+      align-self: flex-start;
+    }
+
+    .contact-box {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 35px;
       padding: 35px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
+      border: 1px solid #594426;
+      border-radius: 15px;
+      background: #1e1b16;
     }
 
-    .contact p { margin: 8px 0; }
-    .contact .actions { margin-top: 24px; }
+    .contact-box p {
+      color: var(--muted);
+    }
+
+    .contact-info {
+      display: grid;
+      gap: 18px;
+    }
+
+    .contact-label {
+      display: block;
+      color: var(--gold);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .contact-box .actions {
+      margin-top: 25px;
+    }
 
     footer {
-      padding: 30px 0;
-      margin-top: 40px;
+      padding: 28px 0;
       border-top: 1px solid var(--border);
       color: var(--muted);
       text-align: center;
+      font-size: 13px;
     }
 
-    @media (max-width: 760px) {
-      nav { width: 100%; }
-      nav .button { flex: 1; padding: 10px; }
-      .hero { padding: 55px 0; }
-      .grid, .contact { grid-template-columns: 1fr; }
-      .catalog-tools input { width: 100%; }
-      .filters .button { padding: 10px 12px; font-size: 13px; }
-      .contact { padding: 24px; }
-      section { padding: 35px 0; }
+    @media (max-width: 1000px) {
+      .header-inner {
+        flex-wrap: wrap;
+      }
+
+      nav {
+        order: 3;
+        width: 100%;
+      }
+
+      nav .button {
+        flex: 1;
+      }
+
+      .languages {
+        margin-left: auto;
+      }
+
+      .hero {
+        gap: 25px;
+      }
+
+      .products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .topbar {
+        font-size: 10px;
+      }
+
+      .brand-name {
+        font-size: 19px;
+      }
+
+      .brand-name small {
+        font-size: 8px;
+      }
+
+      .brand img {
+        width: 48px;
+        height: 48px;
+      }
+
+      .header-inner {
+        gap: 14px;
+        padding: 12px 0;
+      }
+
+      nav .button {
+        padding: 10px 8px;
+        font-size: 12px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 45px 0;
+        gap: 25px;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .hero-image img {
+        max-width: 230px;
+      }
+
+      .brand-strip {
+        gap: 15px;
+        font-size: 12px;
+      }
+
+      section {
+        padding: 38px 0;
+      }
+
+      h2 {
+        font-size: 29px;
+      }
+
+      .search-row {
+        flex-direction: column;
+      }
+
+      .filters {
+        gap: 6px;
+      }
+
+      .filters .button {
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+
+      .products {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .product-visual {
+        height: 255px;
+      }
+
+      .contact-box {
+        grid-template-columns: 1fr;
+        padding: 25px;
+      }
+
+      .contact-box .actions .button {
+        flex: 1;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .button { transition: none; }
+      html {
+        scroll-behavior: auto;
+      }
+
+      * {
+        transition: none !important;
+      }
     }
   </style>
 </head>
 
 <body>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span data-text="shortAddress"></span>
+      <span data-text="hours"></span>
+    </div>
+  </div>
+
   <header>
     <div class="container header-inner">
       <a class="brand" href="#">
-       <img src="./logo.jpg.png" alt="Смарт Кейс">
-        <div>СМАРТ <span>КЕЙС</span></div>
+        <img src="./logo.jpg.png" alt="Смарт Кейс">
+        <div class="brand-name">
+          СМАРТ<span>КЕЙС</span>
+          <small>SMARTCASE OSH</small>
+        </div>
       </a>
 
-      <div class="languages" aria-label="Тил / Язык">
-        <button class="button active" data-lang="ky">KY</button>
-        <button class="button" data-lang="ru">RU</button>
-      </div>
-
-      <nav>
+      <nav aria-label="Навигация">
         <a class="button" href="#catalog" data-text="catalog"></a>
         <a class="button" href="#services" data-text="services"></a>
         <a class="button" href="#contacts" data-text="contacts"></a>
       </nav>
+
+      <div class="languages" aria-label="Тил / Язык">
+        <button class="button" data-lang="ky" type="button">KY</button>
+        <button class="button" data-lang="ru" type="button">RU</button>
+      </div>
     </div>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <div class="label">SMARTCASE — OSH</div>
-      <h1 data-text="title"></h1>
-      <p data-text="intro"></p>
-
-      <div class="actions">
-        <a class="button primary" href="#catalog" data-text="viewCatalog"></a>
-        <a class="button"
-           href="https://wa.me/996770309578"
-           target="_blank"
-           rel="noopener"
-           data-text="write"></a>
-      </div>
-    </section>
-
-    <section id="catalog">
-      <h2 data-text="catalog"></h2>
-
-      <div class="catalog-tools">
-        <div class="filters">
-          <button class="button active" data-category="all" data-text="all"></button>
-          <button class="button" data-category="phones" data-text="phones"></button>
-          <button class="button" data-category="accessories" data-text="accessories"></button>
-          <button class="button" data-category="gadgets" data-text="gadgets"></button>
-        </div>
-
-        <input id="search" type="search">
-      </div>
-
-      <div id="products" class="grid" aria-live="polite"></div>
-
-      <div id="empty" class="empty" role="status">
-        <h3 id="empty-title"></h3>
-        <p id="empty-description"></p>
-        <a class="button primary"
-           href="https://wa.me/996770309578"
-           target="_blank"
-           rel="noopener"
-           data-text="askStock"></a>
-      </div>
-    </section>
-
-    <section id="services">
-      <h2 data-text="services"></h2>
-
-      <div class="grid">
-        <article class="card">
-          <h3 data-text="repair"></h3>
-          <p data-text="repairDescription"></p>
-          <a class="button"
-             href="https://wa.me/996770309578"
-             target="_blank"
-             rel="noopener"
-             data-text="write"></a>
-        </article>
-
-        <article class="card">
-          <h3>Trade-in</h3>
-          <p data-text="tradeDescription"></p>
-          <a class="button"
-             href="https://wa.me/996770309578?text=Trade-in"
-             target="_blank"
-             rel="noopener"
-             data-text="details"></a>
-        </article>
-
-        <article class="card">
-          <h3 data-text="help"></h3>
-          <p data-text="helpDescription"></p>
-          <a class="button"
-             href="https://wa.me/996770309578"
-             target="_blank"
-             rel="noopener"
-             data-text="consult"></a>
-        </article>
-      </div>
-    </section>
-
-    <section id="contacts">
-      <div class="contact">
+  <main>
+    <div class="container">
+      <section class="hero">
         <div>
-          <h2 data-text="contacts"></h2>
-          <p data-text="address"></p>
-          <p data-text="hours"></p>
-          <p><a href="tel:+996770309578">+996 770 309 578</a></p>
+          <div class="eyebrow">SMARTCASE — OSH</div>
+          <h1 data-text="heroTitle"></h1>
+          <p data-text="heroDescription"></p>
+
+          <div class="actions">
+            <a class="button primary"
+               href="#catalog"
+               data-text="openCatalog"></a>
+
+            <a class="button"
+               href="https://wa.me/996770309578"
+               target="_blank"
+               rel="noopener"
+               data-text="write"></a>
+          </div>
         </div>
 
-        <div class="actions">
-          <a class="button primary"
-             href="https://wa.me/996770309578"
-             target="_blank"
-             rel="noopener">WhatsApp</a>
-
-          <a class="button"
-             href="tel:+996770309578"
-             data-text="call"></a>
-
-          <a class="button"
-             href="https://www.instagram.com/smartcase2.lux/"
-             target="_blank"
-             rel="noopener">Instagram</a>
-
-          <a class="button"
-             href="https://www.google.com/maps/search/?api=1&query=Ош+Масалиева+28"
-             target="_blank"
-             rel="noopener"
-             data-text="map"></a>
+        <div class="hero-image">
+          <img src="./logo.jpg.png" alt="Смарт Кейс">
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
+
+    <div class="brand-strip">
+      <span>Apple</span>
+      <span>Samsung</span>
+      <span>Redmi</span>
+      <span>POCO</span>
+      <span>Xiaomi</span>
+      <span>Huawei</span>
+      <span>vivo</span>
+    </div>
+
+    <div class="container">
+      <section id="catalog">
+        <h2 data-text="catalog"></h2>
+        <p class="section-description" data-text="catalogDescription"></p>
+
+        <div class="catalog-controls">
+          <div class="filters" aria-label="Бренд">
+            <button class="button"
+                    type="button"
+                    data-brand="all"
+                    data-text="all"></button>
+
+            <button class="button"
+                    type="button"
+                    data-brand="Apple">iPhone</button>
+
+            <button class="button"
+                    type="button"
+                    data-brand="Samsung">Samsung</button>
+
+            <button class="button"
+                    type="button"
+                    data-brand="Redmi">Redmi</button>
+
+            <button class="button"
+                    type="button"
+                    data-brand="POCO">POCO</button>
+
+            <button class="button"
+                    type="button"
+                    data-brand="Xiaomi">Xiaomi</button>
+
+            <button class="button"
+                    type="button"
+                    data-brand="Huawei">Huawei</button>
+
+            <button class="button"
+                    type="button"
+                    data-brand="vivo">vivo</button>
+          </div>
+
+          <div class="search-row">
+            <input id="search" type="search" autocomplete="off">
+
+            <select id="condition">
+              <option value="all" data-text="allConditions"></option>
+              <option value="new" data-text="newPhones"></option>
+              <option value="used" data-text="usedPhones"></option>
+            </select>
+          </div>
+
+          <p id="catalog-count"
+             class="catalog-count"
+             role="status"></p>
+        </div>
+
+        <div id="products" class="products"></div>
+
+        <div id="empty" class="empty" hidden>
+          <h3 data-text="notFound"></h3>
+          <p data-text="tryAgain"></p>
+          <button id="reset"
+                  class="button primary"
+                  type="button"
+                  data-text="reset"></button>
+        </div>
+
+        <p class="catalog-disclaimer" data-text="photoNote"></p>
+      </section>
+
+      <section id="services">
+        <h2 data-text="services"></h2>
+
+        <div class="services-grid">
+          <article class="service">
+            <h3 data-text="repair"></h3>
+            <p data-text="repairDescription"></p>
+            <a class="button"
+               href="https://wa.me/996770309578"
+               target="_blank"
+               rel="noopener"
+               data-text="write"></a>
+          </article>
+
+          <article class="service">
+            <h3>Trade-in</h3>
+            <p data-text="tradeDescription"></p>
+            <a class="button"
+               href="https://wa.me/996770309578?text=Trade-in"
+               target="_blank"
+               rel="noopener"
+               data-text="details"></a>
+          </article>
+
+          <article class="service">
+            <h3 data-text="accessories"></h3>
+            <p data-text="accessoriesDescription"></p>
+            <a class="button"
+               href="https://wa.me/996770309578"
+               target="_blank"
+               rel="noopener"
+               data-text="askStock"></a>
+          </article>
+        </div>
+      </section>
+
+      <section id="contacts">
+        <div class="contact-box">
+          <div>
+            <h2 data-text="contacts"></h2>
+            <p data-text="visit"></p>
+
+            <div class="actions">
+              <a class="button primary"
+                 href="https://wa.me/996770309578"
+                 target="_blank"
+                 rel="noopener">WhatsApp</a>
+
+              <a class="button"
+                 href="tel:+996770309578"
+                 data-text="call"></a>
+
+              <a class="button"
+                 href="https://www.instagram.com/smartcase2.lux/"
+                 target="_blank"
+                 rel="noopener">Instagram</a>
+            </div>
+          </div>
+
+          <div class="contact-info">
+            <div>
+              <span class="contact-label" data-text="addressLabel"></span>
+              <a href="https://www.google.com/maps/search/?api=1&query=Ош+Масалиева+28"
+                 target="_blank"
+                 rel="noopener"
+                 data-text="address"></a>
+            </div>
+
+            <div>
+              <span class="contact-label" data-text="hoursLabel"></span>
+              <span data-text="hours"></span>
+            </div>
+
+            <div>
+              <span class="contact-label" data-text="phoneLabel"></span>
+              <a href="tel:+996770309578">+996 770 309 578</a>
+            </div>
+
+            <div>
+              <a class="button"
+                 href="https://www.google.com/maps/search/?api=1&query=Ош+Масалиева+28"
+                 target="_blank"
+                 rel="noopener"
+                 data-text="map"></a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
 
   <footer>
-    <div class="container">СМАРТ КЕЙС — <span data-text="footer"></span></div>
+    <div class="container">
+      СМАРТ КЕЙС — <span data-text="footer"></span>
+    </div>
   </footer>
 
   <script>
-    /*
-      Товарларды кийин ушул массивге кошобуз.
+    const WHATSAPP = "https://wa.me/996770309578";
 
-      Товардын түзүлүшү:
+    const APPLE_IMAGES =
+      "https://cdsassets.apple.com/live/7WUAS350/images/iphone/";
+
+    // iPhone баалары — сиз берген тизме.
+    // Абалы көрсөтүлбөгөндөргө жаңы же б/у деп кошулган жок.
+    const iphoneList = [
       {
-        id: "product-1",
-        category: "phones",
-        name: { ky: "Товардын аты", ru: "Название товара" },
-        price: 1000,
-        image: "images/product.jpg"
+        model: "iPhone 11",
+        price: 11000,
+        image: "identify-iphone-11-colors.jpg"
+      },
+      {
+        model: "iPhone 11 Pro",
+        price: 14000,
+        maxPrice: 15000,
+        image: "identify-iphone-11pro.jpg"
+      },
+      {
+        model: "iPhone 12",
+        price: 20000,
+        image: "2021-iphone12-colors.png"
+      },
+      {
+        model: "iPhone 12 Pro",
+        price: 25000,
+        image: "iphone-12-pro/iphone12-pro-colors.jpg"
+      },
+      {
+        model: "iPhone 13",
+        price: 28000,
+        image: "2022-spring-iphone13-colors.png"
+      },
+      {
+        model: "iPhone 13 Pro",
+        memory: "128 GB",
+        price: 35000,
+        image: "2022-spring-iphone13-pro-colors.png"
+      },
+      {
+        model: "iPhone 13 Pro",
+        memory: "256 GB",
+        price: 40000,
+        image: "2022-spring-iphone13-pro-colors.png"
+      },
+      {
+        model: "iPhone 13 Pro Max",
+        price: 45000,
+        maxPrice: 48000,
+        image: "2022-spring-iphone13-pro-max-colors.png"
+      },
+      {
+        model: "iPhone 14 Pro",
+        price: 48000,
+        image: "iphone-14-pro-colors.png"
+      },
+      {
+        model: "iPhone 14 Pro Max",
+        price: 53000,
+        image: "iphone-14-pro-max-colors.png"
+      },
+      {
+        model: "iPhone 15 Pro",
+        price: 60000,
+        image: "fall-2023-iphone-colors-iphone-15-pro.png"
+      },
+      {
+        model: "iPhone 15 Pro Max",
+        price: 65000,
+        image: "fall-2023-iphone-colors-iphone-15-pro-max.png"
+      },
+      {
+        model: "iPhone 16 Pro",
+        price: 70000,
+        image: "iphone-16-pro-colors.png"
+      },
+      {
+        model: "iPhone 16 Pro Max",
+        price: 78000,
+        image: "iphone-16-pro-max-colors.png"
+      },
+      {
+        model: "iPhone 17 Pro",
+        condition: "used",
+        price: 85000,
+        maxPrice: 95000,
+        image: "iphone-17-pro-colors.png"
+      },
+      {
+        model: "iPhone 17 Pro Max",
+        condition: "used",
+        price: 100000,
+        maxPrice: 115000,
+        image: "iphone-17-pro-max-colors.png"
+      },
+      {
+        model: "iPhone Air",
+        condition: "used",
+        price: 70000,
+        image: "iphone-air-colors.png"
+      },
+      {
+        model: "iPhone 17 Pro",
+        condition: "new",
+        price: 112000,
+        image: "iphone-17-pro-colors.png"
+      },
+      {
+        model: "iPhone 17 Pro Max",
+        condition: "new",
+        price: 123000,
+        image: "iphone-17-pro-max-colors.png"
+      },
+      {
+        model: "iPhone 18 Pro Max",
+        condition: "new",
+        price: 148000,
+        image: "iphone-18-pro-max-colors.png"
       }
+    ];
 
-      Категориялар: phones, accessories, gadgets.
-      price — сом менен чыныгы баасы.
-    */
-    const products = [];
+    // Булар конкреттүү товар эмес, бренд боюнча карточкалар.
+    // Сүрөттөгү моделдер үлгү катары көрсөтүлөт.
+    const otherBrands = [
+      {
+        id: "samsung",
+        brand: "Samsung",
+        model: "Samsung",
+        sampleModel: "Samsung Galaxy S24",
+        condition: "both",
+        negotiable: true,
+        image:
+          "https://media.gadgetbytenepal.com/2024/01/Samsung-Galaxy-S24-Marble-Grey.jpg"
+      },
+      {
+        id: "redmi",
+        brand: "Redmi",
+        model: "Redmi",
+        sampleModel: "Redmi Note 13 Pro",
+        condition: "both",
+        negotiable: true,
+        image:
+          "https://bf1af2.akinoncloudcdn.com/products/2024/09/10/32303/60ff0acc-1aac-4880-b7bc-f88e70b1eb61.jpg"
+      },
+      {
+        id: "poco",
+        brand: "POCO",
+        model: "POCO",
+        sampleModel: "POCO X6 Pro",
+        condition: "both",
+        negotiable: true,
+        image:
+          "https://sota.store/image/cache/catalog/Xiaomi-3/poco-x6-pro-blk-01-1600x1600.webp"
+      },
+      {
+        id: "xiaomi",
+        brand: "Xiaomi",
+        model: "Xiaomi",
+        sampleModel: "Xiaomi 14",
+        condition: "both",
+        negotiable: true,
+        image:
+          "https://i.gadgets360cdn.com/products/large/Xiaomi-14-DB-709x800-1698330040.jpg"
+      },
+      {
+        id: "huawei",
+        brand: "Huawei",
+        model: "Huawei",
+        sampleModel: "Huawei Pura 70",
+        condition: "both",
+        negotiable: true,
+        image:
+          "https://img01.huaweifile.com/eu/tr/huawei/pms/uomcdn/TRHW/pms/202404/gbom/6942103122576/800_800_8B671550C4CB0D67A66BE4C308E99674mp.png"
+      },
+      {
+        id: "vivo",
+        brand: "vivo",
+        model: "vivo",
+        sampleModel: "vivo V30",
+        condition: "both",
+        negotiable: true,
+        image:
+          "https://asia-exstatic-vivofs.vivo.com/PSee2l50xoirPK7y/1709714144346/044fe04f4c9ef6a94e67d080dc419333.png"
+      }
+    ];
+
+    const products = [
+      ...iphoneList.map((phone, index) => ({
+        ...phone,
+        id: "iphone-" + (index + 1),
+        brand: "Apple",
+        image: APPLE_IMAGES + phone.image
+      })),
+      ...otherBrands
+    ];
 
     const translations = {
       ky: {
-        title: "Технологияны биз менен танда.",
-        intro: "Жаңы жана колдонулган телефондор, аксессуарлар, гаджеттер жана телефон оңдоо. Баары Ош шаарындагы Смарт Кейсте.",
+        shortAddress: "Ош · Масалиева, 28",
+        hours: "Күн сайын 09:00–22:00",
         catalog: "Каталог",
         services: "Кызматтар",
         contacts: "Байланыш",
-        viewCatalog: "Каталогду ачуу",
+        heroTitle: "Технологияны биз менен танда.",
+        heroDescription:
+          "iPhone, Samsung, Redmi, POCO, Xiaomi, Huawei жана vivo. Жаңы жана колдонулган телефондор, аксессуарлар жана телефон оңдоо.",
+        openCatalog: "Каталогду ачуу",
         write: "WhatsApp'ка жазуу",
+        catalogDescription:
+          "Телефонуңду танда. Баасын жана бар-жогун бизден такта.",
         all: "Баары",
-        phones: "Телефондор",
-        accessories: "Аксессуарлар",
-        gadgets: "Гаджеттер",
-        search: "Товар издөө",
-        emptyTitle: "Каталог жакында толукталат",
-        emptyDescription: "Товарларды кийин кошобуз. Азырынча керектүү товарды WhatsApp аркылуу сурасаңыз болот.",
-        noResults: "Товар табылган жок",
-        tryAgain: "Башка аталышты же категорияны тандап көрүңүз.",
-        askStock: "Бар-жогун сурап билүү",
+        search: "Телефон же бренд издөө",
+        conditionLabel: "Телефондун абалы",
+        allConditions: "Бардык абалдар",
+        newPhones: "Жаңы",
+        usedPhones: "Колдонулган",
+        new: "Жаңы",
+        used: "Колдонулган",
+        both: "Жаңы жана колдонулган бар",
+        unknown: "Абалын тактаңыз",
+        negotiable: "Договорная",
+        currency: "сом",
+        count: "Көрсөтүлгөн карточкалар:",
+        askProduct: "WhatsApp аркылуу суроо",
+        askModels: "Моделдерди сурап билүү",
+        availability: "Бар-жогун WhatsApp аркылуу тактаңыз.",
+        brandDescription:
+          "Жаңы жана колдонулган моделдер бар. Баасы модель, эс тутум жана абалы боюнча макулдашылат.",
+        sample: "Сүрөттөгү үлгү:",
+        photoNote:
+          "Сүрөттөр моделдерди таанытуу үчүн берилген. Түсү, эс тутуму, комплектациясы жана абалы боюнча так маалыматты WhatsApp аркылуу алыңыз.",
+        notFound: "Товар табылган жок",
+        tryAgain: "Издөө сөзүн же чыпкаларды өзгөртүп көрүңүз.",
+        reset: "Баарын көрсөтүү",
         repair: "Телефон оңдоо",
-        repairDescription: "Телефонуңуздагы көйгөйдү айтып жазыңыз. Оңдоо мүмкүнчүлүгүн жана баасын тактайбыз.",
-        tradeDescription: "Эски телефонуңузду алмаштыруунун шарттарын бизден тактаңыз.",
+        repairDescription:
+          "Телефонуңуздагы көйгөйдү айтып жазыңыз. Оңдоо мүмкүнчүлүгүн жана баасын тактаңыз.",
+        tradeDescription:
+          "Телефонуңузду жаңырткыңыз келеби? Эски телефонуңузду алмаштыруунун шарттарын сураңыз.",
         details: "Шарттарын билүү",
-        help: "Тандоого жардам",
-        helpDescription: "Өзүңүзгө ылайык телефон, гаджет жана аксессуар тандоого жардам беребиз.",
-        consult: "Кеңеш алуу",
+        accessories: "Аксессуарлар",
+        accessoriesDescription:
+          "Каптар, кулакчындар жана кубаттагычтар. Керектүү аксессуардын бар-жогун сураңыз.",
+        askStock: "Бар-жогун тактоо",
+        visit: "Ош шаарындабыз. Келип, өзүңүзгө ылайык телефон тандаңыз.",
+        addressLabel: "Дарек",
         address: "Ош шаары, Масалиева көчөсү, 28",
-        hours: "Күн сайын: 09:00–22:00",
+        hoursLabel: "Иш убактысы",
+        phoneLabel: "Телефон",
         call: "Чалуу",
         map: "Картадан көрүү",
         footer: "Телефондор жана аксессуарлар",
-        askProduct: "Товар жөнүндө суроо",
-        greeting: "Саламатсызбы! Бул товар барбы: ",
-        currency: "сом"
+        imageUnavailable: "Сүрөт жүктөлгөн жок",
+        greeting: "Саламатсызбы! Бул телефон жөнүндө билгим келет: ",
+        brandGreeting: "Саламатсызбы! ",
+        brandQuestion:
+          " брендинин жаңы жана колдонулган кайсы моделдери бар? Бааларын айтып бересизби?"
       },
 
       ru: {
-        title: "Выбирай технологии вместе с нами.",
-        intro: "Новые и б/у телефоны, аксессуары, гаджеты и ремонт телефонов. Всё в Смарт Кейсе в городе Ош.",
+        shortAddress: "Ош · Масалиева, 28",
+        hours: "Ежедневно 09:00–22:00",
         catalog: "Каталог",
         services: "Услуги",
         contacts: "Контакты",
-        viewCatalog: "Открыть каталог",
+        heroTitle: "Выбирай технологии вместе с нами.",
+        heroDescription:
+          "iPhone, Samsung, Redmi, POCO, Xiaomi, Huawei и vivo. Новые и б/у телефоны, аксессуары и ремонт.",
+        openCatalog: "Открыть каталог",
         write: "Написать в WhatsApp",
+        catalogDescription:
+          "Выбирайте телефон. Уточняйте цену и наличие у нас.",
         all: "Все",
-        phones: "Телефоны",
-        accessories: "Аксессуары",
-        gadgets: "Гаджеты",
-        search: "Найти товар",
-        emptyTitle: "Каталог скоро пополнится",
-        emptyDescription: "Товары добавим позже. Пока вы можете уточнить наличие нужного товара в WhatsApp.",
-        noResults: "Товары не найдены",
-        tryAgain: "Попробуйте другое название или категорию.",
-        askStock: "Уточнить наличие",
+        search: "Поиск телефона или бренда",
+        conditionLabel: "Состояние телефона",
+        allConditions: "Любое состояние",
+        newPhones: "Новые",
+        usedPhones: "Б/у",
+        new: "Новый",
+        used: "Б/у",
+        both: "Б/у и новые",
+        unknown: "Уточняйте состояние",
+        negotiable: "Договорная",
+        currency: "сом",
+        count: "Показано карточек:",
+        askProduct: "Спросить в WhatsApp",
+        askModels: "Узнать доступные модели",
+        availability: "Уточняйте наличие в WhatsApp.",
+        brandDescription:
+          "Есть новые и б/у модели. Цена договорная и зависит от модели, памяти и состояния.",
+        sample: "На фото — пример:",
+        photoNote:
+          "Изображения представлены для ознакомления с моделями. Цвет, память, комплектацию и состояние уточняйте в WhatsApp.",
+        notFound: "Товары не найдены",
+        tryAgain: "Попробуйте изменить поисковый запрос или фильтры.",
+        reset: "Показать все",
         repair: "Ремонт телефонов",
-        repairDescription: "Напишите о проблеме с телефоном. Уточним возможность и стоимость ремонта.",
-        tradeDescription: "Узнайте у нас об условиях обмена своего старого телефона.",
+        repairDescription:
+          "Напишите о проблеме с телефоном. Уточните возможность и стоимость ремонта.",
+        tradeDescription:
+          "Хотите обновить телефон? Узнайте об условиях обмена своего старого устройства.",
         details: "Узнать условия",
-        help: "Помощь с выбором",
-        helpDescription: "Поможем подобрать подходящий телефон, гаджет или аксессуар.",
-        consult: "Получить консультацию",
+        accessories: "Аксессуары",
+        accessoriesDescription:
+          "Чехлы, наушники и зарядные устройства. Уточняйте наличие нужного аксессуара.",
+        askStock: "Уточнить наличие",
+        visit: "Мы в городе Ош. Приходите и выбирайте подходящий телефон.",
+        addressLabel: "Адрес",
         address: "Город Ош, улица Масалиева, 28",
-        hours: "Ежедневно: 09:00–22:00",
+        hoursLabel: "Время работы",
+        phoneLabel: "Телефон",
         call: "Позвонить",
         map: "Открыть карту",
         footer: "Телефоны и аксессуары",
-        askProduct: "Спросить о товаре",
-        greeting: "Здравствуйте! Есть ли в наличии: ",
-        currency: "сом"
+        imageUnavailable: "Изображение не загрузилось",
+        greeting: "Здравствуйте! Интересует этот телефон: ",
+        brandGreeting: "Здравствуйте! Какие новые и б/у модели ",
+        brandQuestion: " есть в наличии? Подскажите цены."
       }
     };
 
     let language = "ky";
-    let category = "all";
+    let selectedBrand = "all";
 
     try {
-      if (localStorage.getItem("smartcase-language") === "ru") {
-        language = "ru";
-      }
-    } catch {}
+      const savedLanguage = localStorage.getItem("smartcase-language");
 
-    const search = document.getElementById("search");
-    const grid = document.getElementById("products");
-    const empty = document.getElementById("empty");
+      if (savedLanguage === "ky" || savedLanguage === "ru") {
+        language = savedLanguage;
+      }
+    } catch {
+      // Сайт localStorage иштебесе да ачылат.
+    }
+
+    const searchInput = document.getElementById("search");
+    const conditionSelect = document.getElementById("condition");
+    const productGrid = document.getElementById("products");
+    const emptyState = document.getElementById("empty");
+    const countElement = document.getElementById("catalog-count");
+
+    function formatNumber(value) {
+      return Number(value).toLocaleString("ru-RU");
+    }
+
+    function getPrice(product) {
+      const text = translations[language];
+
+      if (product.negotiable) {
+        return text.negotiable;
+      }
+
+      let result = formatNumber(product.price);
+
+      if (product.maxPrice) {
+        result += "–" + formatNumber(product.maxPrice);
+      }
+
+      return result + " " + text.currency;
+    }
+
+    function getCondition(product) {
+      const text = translations[language];
+
+      if (product.condition === "new") return text.new;
+      if (product.condition === "used") return text.used;
+      if (product.condition === "both") return text.both;
+
+      return text.unknown;
+    }
+
+    function getProductTitle(product) {
+      return product.model +
+        (product.memory ? " · " + product.memory : "");
+    }
+
+    function createBadge(label, type) {
+      const badge = document.createElement("span");
+      badge.className = "badge" + (type ? " " + type : "");
+      badge.textContent = label;
+      return badge;
+    }
+
+    function makeWhatsAppUrl(product) {
+      const text = translations[language];
+      let message;
+
+      if (product.negotiable) {
+        message =
+          text.brandGreeting +
+          product.brand +
+          text.brandQuestion;
+      } else {
+        message =
+          text.greeting +
+          getProductTitle(product) +
+          ". " +
+          getCondition(product) +
+          ". " +
+          getPrice(product);
+      }
+
+      return WHATSAPP + "?text=" + encodeURIComponent(message);
+    }
+
+    function createProductCard(product) {
+      const text = translations[language];
+
+      const article = document.createElement("article");
+      article.className = "product";
+
+      const visual = document.createElement("div");
+      visual.className = "product-visual";
+
+      const image = document.createElement("img");
+      image.src = product.image;
+      image.alt = product.sampleModel || getProductTitle(product);
+      image.loading = "lazy";
+      image.decoding = "async";
+      image.referrerPolicy = "no-referrer";
+
+      const fallback = document.createElement("span");
+      fallback.className = "image-fallback";
+      fallback.textContent = text.imageUnavailable;
+      fallback.hidden = true;
+
+      image.addEventListener("error", () => {
+        image.hidden = true;
+        fallback.hidden = false;
+      }, { once: true });
+
+      visual.append(image, fallback);
+
+      const body = document.createElement("div");
+      body.className = "product-body";
+
+      const brand = document.createElement("div");
+      brand.className = "product-brand";
+      brand.textContent = product.brand;
+
+      const title = document.createElement("h3");
+      title.textContent = getProductTitle(product);
+
+      const badges = document.createElement("div");
+      badges.className = "badges";
+
+      if (product.condition === "both") {
+        badges.append(createBadge(text.both, "new"));
+      } else {
+        badges.append(
+          createBadge(
+            getCondition(product),
+            product.condition || ""
+          )
+        );
+      }
+
+      const note = document.createElement("p");
+      note.className = "product-note";
+
+      if (product.negotiable) {
+        note.textContent =
+          text.brandDescription +
+          " " +
+          text.sample +
+          " " +
+          product.sampleModel +
+          ".";
+      } else {
+        note.textContent = text.availability;
+      }
+
+      const price = document.createElement("p");
+      price.className = "product-price";
+      price.textContent = getPrice(product);
+
+      const button = document.createElement("a");
+      button.className = "button primary";
+      button.href = makeWhatsAppUrl(product);
+      button.target = "_blank";
+      button.rel = "noopener";
+
+      button.textContent = product.negotiable
+        ? text.askModels
+        : text.askProduct;
+
+      body.append(brand, title, badges, note, price, button);
+      article.append(visual, body);
+
+      return article;
+    }
+
+    function renderProducts() {
+      const text = translations[language];
+      const query = searchInput.value.trim().toLocaleLowerCase();
+      const selectedCondition = conditionSelect.value;
+
+      const visibleProducts = products.filter(product => {
+        const matchesBrand =
+          selectedBrand === "all" ||
+          product.brand === selectedBrand;
+
+        const matchesCondition =
+          selectedCondition === "all" ||
+          product.condition === selectedCondition ||
+          product.condition === "both";
+
+        // Бренд карточкасындагы үлгү моделди
+        // өзүнчө сатылып жаткан товар катары издебейбиз.
+        const searchableText = [
+          product.model,
+          product.brand,
+          product.memory || ""
+        ].join(" ").toLocaleLowerCase();
+
+        const matchesSearch = searchableText.includes(query);
+
+        return matchesBrand && matchesCondition && matchesSearch;
+      });
+
+      const fragment = document.createDocumentFragment();
+
+      visibleProducts.forEach(product => {
+        fragment.append(createProductCard(product));
+      });
+
+      productGrid.replaceChildren(fragment);
+      emptyState.hidden = visibleProducts.length > 0;
+
+      countElement.textContent =
+        text.count + " " + visibleProducts.length;
+
+      document.querySelectorAll("[data-brand]").forEach(button => {
+        const active = button.dataset.brand === selectedBrand;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+    }
 
     function setLanguage(value) {
+      if (!translations[value]) return;
+
       language = value;
       const text = translations[language];
 
@@ -485,89 +1411,27 @@
       document.title = "Смарт Кейс — " + text.footer;
 
       document.querySelectorAll("[data-text]").forEach(element => {
-        element.textContent = text[element.dataset.text];
+        const key = element.dataset.text;
+        element.textContent = text[key] || "";
       });
 
       document.querySelectorAll("[data-lang]").forEach(button => {
-        const selected = button.dataset.lang === language;
-        button.classList.toggle("active", selected);
-        button.setAttribute("aria-pressed", String(selected));
+        const active = button.dataset.lang === language;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", String(active));
       });
 
-      search.placeholder = text.search;
-      search.setAttribute("aria-label", text.search);
+      searchInput.placeholder = text.search;
+      searchInput.setAttribute("aria-label", text.search);
+      conditionSelect.setAttribute("aria-label", text.conditionLabel);
 
       try {
         localStorage.setItem("smartcase-language", language);
-      } catch {}
+      } catch {
+        // Тилди сактоо мүмкүн болбосо, сайт иштей берет.
+      }
 
       renderProducts();
-    }
-
-    function renderProducts() {
-      const text = translations[language];
-      const query = search.value.trim().toLocaleLowerCase();
-
-      const filtered = products.filter(product => {
-        const name = product.name[language] || product.name.ky;
-        const matchesCategory =
-          category === "all" || product.category === category;
-
-        return matchesCategory &&
-          name.toLocaleLowerCase().includes(query);
-      });
-
-      grid.replaceChildren();
-
-      filtered.forEach(product => {
-        const name = product.name[language] || product.name.ky;
-
-        const card = document.createElement("article");
-        card.className = "card";
-
-        if (product.image) {
-          const image = document.createElement("img");
-          image.className = "product-image";
-          image.src = product.image;
-          image.alt = name;
-          image.loading = "lazy";
-          card.append(image);
-        }
-
-        const title = document.createElement("h3");
-        title.textContent = name;
-
-        const price = document.createElement("p");
-        price.className = "price";
-        price.textContent =
-          Number(product.price).toLocaleString("ru-RU") +
-          " " + text.currency;
-
-        const button = document.createElement("a");
-        button.className = "button primary";
-        button.textContent = text.askProduct;
-        button.href = "https://wa.me/996770309578?text=" +
-          encodeURIComponent(text.greeting + name);
-        button.target = "_blank";
-        button.rel = "noopener";
-
-        card.append(title, price, button);
-        grid.append(card);
-      });
-
-      empty.hidden = filtered.length > 0;
-
-      document.getElementById("empty-title").textContent =
-        products.length ? text.noResults : text.emptyTitle;
-
-      document.getElementById("empty-description").textContent =
-        products.length ? text.tryAgain : text.emptyDescription;
-
-      document.querySelectorAll("[data-category]").forEach(button => {
-        const selected = button.dataset.category === category;
-        button.classList.toggle("active", selected);
-        button.setAttribute("aria-pressed", String(selected));
-      });
     }
 
     document.querySelectorAll("[data-lang]").forEach(button => {
@@ -576,14 +1440,23 @@
       });
     });
 
-    document.querySelectorAll("[data-category]").forEach(button => {
+    document.querySelectorAll("[data-brand]").forEach(button => {
       button.addEventListener("click", () => {
-        category = button.dataset.category;
+        selectedBrand = button.dataset.brand;
         renderProducts();
       });
     });
 
-    search.addEventListener("input", renderProducts);
+    searchInput.addEventListener("input", renderProducts);
+    conditionSelect.addEventListener("change", renderProducts);
+
+    document.getElementById("reset").addEventListener("click", () => {
+      selectedBrand = "all";
+      searchInput.value = "";
+      conditionSelect.value = "all";
+      renderProducts();
+    });
+
     setLanguage(language);
   </script>
 </body>
